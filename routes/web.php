@@ -25,8 +25,20 @@ Route::get('/', function () {
  */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/**
+ * ROTTE pagine per utenti loggati
+ */
+// Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Route::prefix('admin')
+        ->namespace('Admin')
+        ->name('admin.')
+        ->middleware('auth')
+        ->group(function() {
+            // home admin
+            Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+            // rotte Post CRUD
+        });
+
+
